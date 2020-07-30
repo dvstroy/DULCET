@@ -19,10 +19,10 @@ MonoBehaviour:
     m_Value: {x: 0.9265863, y: 0.83419514, z: 1, w: -0.044411544}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.97604644, y: 0.93305606, z: 1, w: 0.1184308}
+    m_Value: {x: 1, y: 0.87436175, z: 0.972334, w: 0.1184308}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.95529705, y: 1, z: 0.94958067, w: 0.3108809}
+    m_Value: {x: 0.9955053, y: 1, z: 0.85394114, w: 0.3108809}
 --- !u!114 &-2109818796249167647
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -50,6 +50,69 @@ MonoBehaviour:
     m_Value: 8
     min: 3
     max: 24
+--- !u!114 &-1923845171678831826
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa3b8214f75b354e9ba2caadd022259, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 1
+  focusMode:
+    m_OverrideState: 1
+    m_Value: 2
+  focusDistance:
+    m_OverrideState: 1
+    m_Value: 2.49
+    min: 0.1
+  nearFocusStart:
+    m_OverrideState: 1
+    m_Value: 0
+    min: 0
+  nearFocusEnd:
+    m_OverrideState: 1
+    m_Value: 25
+    min: 0
+  farFocusStart:
+    m_OverrideState: 1
+    m_Value: 100
+    min: 0
+  farFocusEnd:
+    m_OverrideState: 1
+    m_Value: 10000
+    min: 0
+  nearSampleCount:
+    m_OverrideState: 1
+    m_Value: 8
+    min: 3
+    max: 8
+  nearMaxBlur:
+    m_OverrideState: 1
+    m_Value: 8
+    min: 0
+    max: 8
+  farSampleCount:
+    m_OverrideState: 1
+    m_Value: 3
+    min: 3
+    max: 16
+  farMaxBlur:
+    m_OverrideState: 1
+    m_Value: 16
+    min: 0
+    max: 16
+  highQualityFiltering:
+    m_OverrideState: 1
+    m_Value: 1
+  resolution:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +131,7 @@ MonoBehaviour:
   - {fileID: 396278178000043239}
   - {fileID: -2109818796249167647}
   - {fileID: -8508681523921579217}
+  - {fileID: -1923845171678831826}
 --- !u!114 &396278178000043239
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -192,7 +256,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.161
+    m_Value: 0.23
     min: 0
     max: 1
   smoothness:
