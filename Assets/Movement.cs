@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
-    public KeyCode forward, backward, left, right, jump, musicMenu;
+    public KeyCode forward, backward, left, right, jump, music;
     public float jumpForce;
     public float runSpeed;
     public bool isGrounded;
+    public bool musicMenu;
 
     Animator anim;
     Rigidbody rb;
@@ -56,19 +57,50 @@ public class Movement : MonoBehaviour
         //Taking inputs
         if (Input.GetKey(forward))
         {
-            forwardIntent += 1;
+            if (musicMenu == true)
+            {
+                PlayB();
+            }
+            else
+            {
+                forwardIntent += 1;
+            }
         }
         if (Input.GetKey(backward))
         {
-            forwardIntent -= 1;
+            if (musicMenu == true)
+            {
+                PlayF();
+            }
+            else
+            {
+                forwardIntent -= 1;
+            }
+
         }
         if (Input.GetKey(left))
         {
-            horizontalIntent -= 1;
+            if (musicMenu == true)
+            {
+                PlayA();
+            }
+            else
+            {
+                horizontalIntent -= 1;
+            }
+            
         }
         if (Input.GetKey(right))
         {
-            horizontalIntent += 1;
+            if (musicMenu == true)
+            {
+                PlayD();
+            }
+            else
+            {
+                horizontalIntent += 1;
+            }
+
         }
         //Storing the direction the player wants to go in
         wantedDirection = new Vector3(horizontalIntent, 0, forwardIntent).normalized;
@@ -139,5 +171,22 @@ public class Movement : MonoBehaviour
         Cursor.visible = !cursorVisible;
         cursorVisible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void PlayB()
+    {
+
+    }
+    public void PlayD()
+    {
+
+    }
+    public void PlayF()
+    {
+
+    }
+    public void PlayA()
+    {
+
     }
 }
