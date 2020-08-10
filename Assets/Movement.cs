@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using UnityEngine.Audio;
 public class Movement : MonoBehaviour
 {
     public KeyCode forward, backward, left, right, jump, music;
     public float jumpForce;
     public float runSpeed;
     public bool isGrounded;
-    public bool musicMenu;
+    public bool musicMenu = false;
+    public CanvasGroup menu;
+    public AudioClip bSound;
+    public AudioClip aSound;
+    public AudioClip dSound;
+    public AudioClip fSound;
+    public AudioSource audioSource;
 
-    Animator anim;
+    //Animator anim;
     Rigidbody rb;
     Vector3 wantedDirection, camDirection;
     bool wantedJump;
@@ -24,7 +30,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         Cursor.visible = cursorVisible;
         Cursor.lockState = CursorLockMode.Locked;
         isGrounded = true;
@@ -50,29 +56,36 @@ public class Movement : MonoBehaviour
         //    cursorVisible = !cursorVisible;
         //}
 
+        if (Input.GetKey(music))
+        {
+            musicMenu = true;
+            Debug.Log("Music ON");
+            menu.alpha = (1);
+        }
+        else
+        {
+            musicMenu = false;
+            Debug.Log("Music OFF");
+            menu.alpha = (0);
+        }
+
         //Setting up vars for movement
         var forwardIntent = 0;
         var horizontalIntent = 0;
 
         //Taking inputs
+        //Movement Keys
+
         if (Input.GetKey(forward))
         {
-            if (musicMenu == true)
-            {
-                PlayB();
-            }
-            else
+            if (musicMenu == false)
             {
                 forwardIntent += 1;
             }
         }
         if (Input.GetKey(backward))
         {
-            if (musicMenu == true)
-            {
-                PlayF();
-            }
-            else
+            if (musicMenu == false)
             {
                 forwardIntent -= 1;
             }
@@ -80,23 +93,14 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetKey(left))
         {
-            if (musicMenu == true)
-            {
-                PlayA();
-            }
-            else
+            if (musicMenu == false)
             {
                 horizontalIntent -= 1;
             }
-            
         }
         if (Input.GetKey(right))
         {
-            if (musicMenu == true)
-            {
-                PlayD();
-            }
-            else
+            if (musicMenu == false)
             {
                 horizontalIntent += 1;
             }
@@ -118,7 +122,7 @@ public class Movement : MonoBehaviour
         //This if checks if the player is moving
         if (wantedDirection.magnitude == 0)
         {
-            anim.SetBool("isRunning", false);
+            //anim.SetBool("isRunning", false);
         }
         else
         {
@@ -126,7 +130,7 @@ public class Movement : MonoBehaviour
             rb.transform.forward = Quaternion.Euler(0, cameraRotationY, 0) * wantedDirection;
             //The code that actually moves the palyer
             rb.MovePosition(rb.position + rb.transform.forward * runSpeed * Time.deltaTime);
-            anim.SetBool("isRunning", true);
+           // anim.SetBool("isRunning", true);
         }
 
 
@@ -134,7 +138,7 @@ public class Movement : MonoBehaviour
         {
             //Makes the player jump
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-            anim.SetTrigger("jump");
+           // anim.SetTrigger("jump");
             wantedJump = false;
         }
 
@@ -150,7 +154,7 @@ public class Movement : MonoBehaviour
     public void SetGrounded(bool grounded)
     {
         isGrounded = grounded;
-        anim.SetBool("inAir", !grounded);
+        //anim.SetBool("inAir", !grounded);
     }
 
     void Reset()
@@ -173,20 +177,56 @@ public class Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void MusicMenu()
+    {
+        if (Input.GetKeyDown(forward))
+        {
+            if (musicMenu == true)
+            {
+                PlayB();
+            }
+        }
+        if (Input.GetKeyDown(backward))
+        {
+            if (musicMenu == true)
+            {
+                PlayF();
+            }
+        }
+        if (Input.GetKeyDown(left))
+        {
+            if (musicMenu == true)
+            {
+                PlayA();
+            }
+        }
+        if (Input.GetKeyDown(right))
+        {
+            if (musicMenu == true)
+            {
+                PlayD();
+            }
+        }
+    }
+
     public void PlayB()
     {
-
+        audioSource.PlayOneShot (bSound, 1f);
+        Debug.Log("PLAY B");
     }
     public void PlayD()
     {
-
+        audioSource.PlayOneShot(dSound, 1f);
+        Debug.Log("PLAY D");
     }
     public void PlayF()
     {
-
+        audioSource.PlayOneShot(fSound, 1f);
+        Debug.Log("PLAY F");
     }
     public void PlayA()
     {
-
+        audioSource.PlayOneShot(aSound, 1f);
+        Debug.Log("PLAY A");
     }
 }
